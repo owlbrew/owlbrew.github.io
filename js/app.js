@@ -1,17 +1,16 @@
 /** Actions */
 
 var CardsActions = Flux.createActions({
-    updateCards: function () {
+    updateCards: function (searchText) {
         return {
-            actionType: "UPDATE_CARDS"
+            actionType: "UPDATE_CARDS",
+            searchText: searchText
         }
     }
 });
 
-function getCards() {
-    return {
-        cards: CardStore.getCards()
-    }
+var getCards = function () {
+    return CardStore.getCards();
 }
 
 /** Controller View */
@@ -19,18 +18,31 @@ function getCards() {
 var CardController = React.createClass({
     mixins: [CardStore.mixin],
     getInitialState: function () {
-        return getCards();
+        return {
+            cards: getCards(),
+            searchText: 'test'
+        };
     },
     storeDidChange: function () {
-        this.setState(getCards());
+        this.setState({
+            cards: getCards(),
+            searchText: this.state.searchText
+        });
+    },
+    handleUserInput: function (searchText) {
+        this.setState({
+            cards: this.state.cards,
+            searchText: searchText
+        });;
+        CardsActions.updateCards(this.state.searchText)
     },
     getCards: function () {
-        CardsActions.updateCards();
+        CardsActions.updateCards(this.state.searchText);
     },
     render: function () {
         return (
             <div>
-                <SearchField/>
+                <SearchField searchText={this.state.searchText} onUserInput={this.handleUserInput}/>
                 <Cards cards={this.state.cards}/>
                 <button onClick={this.getCards}>UpdateCards</button>
             </div>
@@ -68,11 +80,14 @@ var Cards = React.createClass({
 });
 
 var SearchField = React.createClass({
-    search: function () {
-        CardsActions.updateCards();
+    handleChange: function () {
+        this.props.onUserInput(
+            this.refs.searchTextInput.getDOMNode().value
+        );
     },
     render: function () {
-        return <div><input type="text" onchange={this.search} value={this.props.searchText}/></div>
+        return <form><input type="text" ref="searchTextInput" onChange={this.handleChange}
+                            value={this.props.searchText}/></form>
     }
 });
 
