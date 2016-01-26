@@ -1,5 +1,3 @@
-
-
 /** Actions */
 
 var CardsActions = Flux.createActions({
@@ -26,8 +24,17 @@ var CardController = React.createClass({
     storeDidChange: function () {
         this.setState(getCards());
     },
+    getCards: function () {
+        CardsActions.updateCards();
+    },
     render: function () {
-        return <UI cards={this.state.cards}/>;
+        return (
+            <div>
+                <SearchField/>
+                <Cards cards={this.state.cards}/>
+                <button onClick={this.getCards}>UpdateCards</button>
+            </div>
+        )
     }
 });
 
@@ -51,7 +58,6 @@ var Cards = React.createClass({
                 <ul className="cards">
                     { this.props.cards.map(function (card) {
                         return <li key={card.id}>
-                            oi
                             <Card data={card}/>
                         </li>
                     })}
@@ -61,17 +67,12 @@ var Cards = React.createClass({
     }
 });
 
-var UI = React.createClass({
-    getCards: function () {
+var SearchField = React.createClass({
+    search: function () {
         CardsActions.updateCards();
     },
     render: function () {
-        return (
-            <div>
-                <Cards cards={this.props.cards}/>
-                <button onClick={this.getCards}>UpdateCards</button>
-            </div>
-        )
+        return <div><input type="text" onchange={this.search} value={this.props.searchText}/></div>
     }
 });
 
