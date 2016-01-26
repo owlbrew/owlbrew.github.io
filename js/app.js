@@ -33,8 +33,8 @@ var CardController = React.createClass({
         this.setState({
             cards: this.state.cards,
             searchText: searchText
-        });;
-        CardsActions.updateCards(this.state.searchText)
+        });
+        this.getCards();
     },
     getCards: function () {
         CardsActions.updateCards(this.state.searchText);
@@ -47,6 +47,9 @@ var CardController = React.createClass({
                 <button onClick={this.getCards}>UpdateCards</button>
             </div>
         )
+    },
+    componentWillMount: function() {
+        this.getCards = _.debounce(this.getCards, 100);
     }
 });
 
