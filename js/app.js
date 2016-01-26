@@ -54,7 +54,7 @@ var CardController = React.createClass({
         this.setState(getCards());
     },
     render: function () {
-        return <Cards cards={this.state.cards}/>;
+        return <UI cards={this.state.cards}/>;
     }
 });
 
@@ -72,19 +72,30 @@ var Card = React.createClass({
 });
 
 var Cards = React.createClass({
-    getCards: function () {
-        CardsActions.updateCards();
-    },
     render: function () {
         return (
             <div className="mtg_app">
                 <ul className="cards">
                     { this.props.cards.map(function (card) {
                         return <li key={card.id}>
+                            oi
                             <Card data={card}/>
                         </li>
                     })}
                 </ul>
+            </div>
+        )
+    }
+});
+
+var UI = React.createClass({
+    getCards: function () {
+        CardsActions.updateCards();
+    },
+    render: function () {
+        return (
+            <div>
+                <Cards cards={this.props.cards}/>
                 <button onClick={this.getCards}>UpdateCards</button>
             </div>
         )
