@@ -12,7 +12,7 @@ function updateCards(searchText) {
             _cards = JSON.parse(xmlHttp.responseText);
         }
     };
-    xmlHttp.open("GET", "https://api.deckbrew.com/mtg/cards?name="+searchText, true); // false for synchronous request
+    xmlHttp.open("GET", "https://api.deckbrew.com/mtg/cards?name="+searchText, false); // false for synchronous request
     xmlHttp.send(null);
 }
 
