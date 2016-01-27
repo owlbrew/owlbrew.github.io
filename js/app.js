@@ -4,21 +4,21 @@ var CardController = React.createClass({
     mixins: [CardStore.mixin],
     getInitialState: function () {
         return {
-            deckCards: [],
+            deck: getDeck(),
             cards: getCards(),
             searchText: 'test'
         };
     },
     storeDidChange: function () {
         this.setState({
-            deckCards: [],
+            deck: getDeck(),
             cards: getCards(),
             searchText: this.state.searchText
         });
     },
     handleUserInput: function (searchText) {
         this.setState({
-            deckCards: [],
+            deck: this.state.deck,
             cards: this.state.cards,
             searchText: searchText
         });
@@ -28,7 +28,7 @@ var CardController = React.createClass({
         CardsActions.updateCards(this.state.searchText);
     },
     addCardToDeck(card) {
-        console.log(card);
+        CardsActions.addCardToDeck(card);
     },
     removeCardfromDeck(card) {
         //TODO
@@ -36,7 +36,7 @@ var CardController = React.createClass({
     render: function () {
         return (
             <div className="app">
-                <Deck cards={this.state.deckCards} cardClickedCallback={this.addCardToDeck}/>
+                <Deck cards={this.state.deck.cards} cardClickedCallback={this.addCardToDeck}/>
                 <SearchResults cards={this.state.cards} cardClickedCallback={this.addCardToDeck}/>
                 <SearchBar searchText={this.state.searchText} handleInputCallback={this.handleUserInput}/>
             </div>
