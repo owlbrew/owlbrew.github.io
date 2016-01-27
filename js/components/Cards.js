@@ -1,7 +1,7 @@
 var Cards = React.createClass({
     render: function () {
         return (
-            <div>
+            <div className={this.props.className}>
                 <ul className="cards">
                     { this.props.cards.map(function (card) {
                         return <li key={card.id}>

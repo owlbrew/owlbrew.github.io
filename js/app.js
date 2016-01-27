@@ -4,6 +4,7 @@ var CardController = React.createClass({
     mixins: [CardStore.mixin],
     getInitialState: function () {
         return {
+            deckCards: [],
             cards: getCards(),
             searchText: 'test'
         };
@@ -27,12 +28,13 @@ var CardController = React.createClass({
     render: function () {
         return (
             <div className="app">
-                <Cards cards={this.state.cards}/>
+                <Deck cards={this.state.cards}/>
+                <SearchResults cards={this.state.cards}/>
                 <SearchBar searchText={this.state.searchText} handleInputCallback={this.handleUserInput}/>
             </div>
         )
     },
-    componentWillMount: function() {
+    componentWillMount: function () {
         this.getCards = _.debounce(this.getCards, 100);
     }
 });

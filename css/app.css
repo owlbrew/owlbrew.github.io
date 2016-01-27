@@ -7,3 +7,15 @@ html, body {
     height: 100%;
     position: relative;
 }
+
+.deck {
+    width: 50%;
+    margin-bottom: 100px;
+    float: left;
+}
+
+.searchResults {
+    width: 50%;
+    margin-bottom: 100px;
+    float: left;
+}

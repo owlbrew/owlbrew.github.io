@@ -1,12 +1,11 @@
-.cards {
+.cards{
     margin-bottom: 100px;
-}
-.cards > li {
-    width: 250px;
+    width:30px;
     display: inline;
+    padding: 0;
 }
 
-.cards > ul > li {
+.cards > li {
     width: 250px;
     display: inline;
 }
