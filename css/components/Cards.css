@@ -1,8 +1,9 @@
-.card {
+.cards > li {
     width: 250px;
     display: inline;
 }
 
-.card > img {
+.cards > ul > li {
     width: 250px;
+    display: inline;
 }
