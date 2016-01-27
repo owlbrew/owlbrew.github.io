@@ -1,4 +1,3 @@
-
 /** Controller View */
 
 var CardController = React.createClass({
@@ -36,47 +35,6 @@ var CardController = React.createClass({
     },
     componentWillMount: function() {
         this.getCards = _.debounce(this.getCards, 100);
-    }
-});
-
-/** Component */
-
-var Card = React.createClass({
-    render: function () {
-        return (
-            <div>
-                <h1>{this.props.data.name}</h1>
-                <img src={this.props.data.editions[0].image_url}/>
-            </div>
-        )
-    }
-});
-
-var Cards = React.createClass({
-    render: function () {
-        return (
-            <div className="mtg_app">
-                <ul className="cards">
-                    { this.props.cards.map(function (card) {
-                        return <li key={card.id}>
-                            <Card data={card}/>
-                        </li>
-                    })}
-                </ul>
-            </div>
-        )
-    }
-});
-
-var SearchField = React.createClass({
-    handleChange: function () {
-        this.props.onUserInput(
-            this.refs.searchTextInput.getDOMNode().value
-        );
-    },
-    render: function () {
-        return <form><input type="text" ref="searchTextInput" onChange={this.handleChange}
-                            value={this.props.searchText}/></form>
     }
 });
 
