@@ -5,7 +5,11 @@ var SearchField = React.createClass({
         );
     },
     render: function () {
-        return <form><input type="text" ref="searchTextInput" onChange={this.handleChange}
-                            value={this.props.searchText}/></form>
+        return (
+            <form>
+                <input type="text" ref="searchTextInput" onChange={this.handleChange}
+                       value={this.props.searchText}/>
+            </form>
+        )
     }
 });

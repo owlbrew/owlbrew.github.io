@@ -26,7 +26,7 @@ var CardController = React.createClass({
     },
     render: function () {
         return (
-            <div>
+            <div className="app">
                 <Cards cards={this.state.cards}/>
                 <SearchBar searchText={this.state.searchText} handleInputCallback={this.handleUserInput}/>
             </div>

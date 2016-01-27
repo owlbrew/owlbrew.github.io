@@ -1,3 +1,6 @@
 .searchBar {
+    position: fixed;
+    bottom: 0;
+    height: 200px;
     background-color: red;
 }
