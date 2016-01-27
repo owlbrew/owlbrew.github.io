@@ -11,12 +11,14 @@ var CardController = React.createClass({
     },
     storeDidChange: function () {
         this.setState({
+            deckCards: [],
             cards: getCards(),
             searchText: this.state.searchText
         });
     },
     handleUserInput: function (searchText) {
         this.setState({
+            deckCards: [],
             cards: this.state.cards,
             searchText: searchText
         });
@@ -25,11 +27,17 @@ var CardController = React.createClass({
     getCards: function () {
         CardsActions.updateCards(this.state.searchText);
     },
+    addCardToDeck(card) {
+        console.log(card);
+    },
+    removeCardfromDeck(card) {
+        //TODO
+    },
     render: function () {
         return (
             <div className="app">
-                <Deck cards={this.state.cards}/>
-                <SearchResults cards={this.state.cards}/>
+                <Deck cards={this.state.deckCards} cardClickedCallback={this.addCardToDeck}/>
+                <SearchResults cards={this.state.cards} cardClickedCallback={this.addCardToDeck}/>
                 <SearchBar searchText={this.state.searchText} handleInputCallback={this.handleUserInput}/>
             </div>
         )

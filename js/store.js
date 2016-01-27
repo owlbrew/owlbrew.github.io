@@ -12,7 +12,7 @@ function updateCards(searchText) {
             _cards = JSON.parse(xmlHttp.responseText);
         }
     };
-    xmlHttp.open("GET", "https://api.deckbrew.com/mtg/cards?name="+searchText, false); // false for synchronous request
+    xmlHttp.open("GET", "https://api.deckbrew.com/mtg/cards?name=" + searchText, false); // false for synchronous request
     xmlHttp.send(null);
 }
 
@@ -21,6 +21,10 @@ var CardStore = Flux.createStore({
         return _cards;
     }
 }, function (payload) {
+    if (payload.actionType === "UPDATE_CARDS") {
+        updateCards(payload.searchText);
+        CardStore.emitChange();
+    }
     if (payload.actionType === "UPDATE_CARDS") {
         updateCards(payload.searchText);
         CardStore.emitChange();
