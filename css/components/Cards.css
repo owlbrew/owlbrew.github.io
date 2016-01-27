@@ -1,3 +1,6 @@
+.cards {
+    margin-bottom: 100px;
+}
 .cards > li {
     width: 250px;
     display: inline;
