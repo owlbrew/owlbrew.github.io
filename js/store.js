@@ -22,6 +22,13 @@ function addCardToDeck(card) {
     _deck.cards.push(card);
 }
 
+function removeCardFromDeck(card) {
+    var index = _deck.cards.indexOf(card);
+    if (index > -1) {
+        _deck.cards.splice(index, 1)
+    }
+}
+
 var CardStore = Flux.createStore({
     getCards: function () {
         return _cards;
@@ -36,6 +43,10 @@ var CardStore = Flux.createStore({
     }
     if (payload.actionType === "ADD_CARD_TO_DECK") {
         addCardToDeck(payload.card);
+        CardStore.emitChange();
+    }
+    if (payload.actionType === "REMOVE_CARD_FROM_DECK") {
+        removeCardFromDeck(payload.card);
         CardStore.emitChange();
     }
 });

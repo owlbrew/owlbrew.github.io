@@ -31,12 +31,12 @@ var CardController = React.createClass({
         CardsActions.addCardToDeck(card);
     },
     removeCardfromDeck(card) {
-        //TODO
+        CardsActions.removeCardfromDeck(card);
     },
     render: function () {
         return (
             <div className="app">
-                <Deck cards={this.state.deck.cards} cardClickedCallback={this.addCardToDeck}/>
+                <Deck cards={this.state.deck.cards} cardClickedCallback={this.removeCardfromDeck}/>
                 <SearchResults cards={this.state.cards} cardClickedCallback={this.addCardToDeck}/>
                 <SearchBar searchText={this.state.searchText} handleInputCallback={this.handleUserInput}/>
             </div>

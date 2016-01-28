@@ -12,6 +12,12 @@ var CardsActions = Flux.createActions({
             actionType: "ADD_CARD_TO_DECK",
             card: card
         }
+    },
+    removeCardfromDeck: function(card) {
+        return {
+            actionType: "REMOVE_CARD_FROM_DECK",
+            card: card
+        }
     }
 });
 
