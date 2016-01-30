@@ -8,6 +8,7 @@ var Card = React.createClass({
         return (
             <div className="card" onClick={cardClicked}>
                 <img src={this.props.card.editions[0].image_url}/>
+                {this.props.card.ammount}
             </div>
         );
     }

@@ -18,22 +18,47 @@ function updateCards(searchText) {
     xmlHttp.send(null);
 }
 
-function addCardToDeck(card) {
-    _deck.cards.push(card);
+function addCardToDeck(cardToAdd) {
+    // Check to see if we can find the card in the deck already and then increment id
+    for (var i = 0; i < _deck.cards.length; i++) {
+        var card = _deck.cards[i];
+        if (card.id === cardToAdd.id) {
+            card.ammount++;
+            return;
+        }
+    }
+    //If we can't then we set ammount of card to one and add it to deck
+    //But first we need to copy object by value so as to not add the reference to the original card
+    cardToAdd = JSON.parse(JSON.stringify(cardToAdd));
+    if (cardToAdd.ammount == null) cardToAdd.ammount = 1;
+    _deck.cards.push(cardToAdd);
 }
 
-function removeCardFromDeck(card) {
-    var index = _deck.cards.indexOf(card);
-    if (index > -1) {
-        _deck.cards.splice(index, 1)
+function removeCardFromDeck(cardToRemove) {
+    for (var i = 0; i < _deck.cards.length; i++) {
+        var card = _deck.cards[i];
+        if (card.id === cardToRemove.id) {
+            if (card.ammount > 1) {
+                card.ammount--;
+            } else if (card.ammount == 1){
+                _deck.cards.splice(i, 1)
+            }
+        }
     }
 }
 
 var CardStore = Flux.createStore({
     getCards: function () {
+        //for (var i = 0; i < _cards.length; i++) {
+        //    var card = _cards[i];
+        //    if (card.ammount == null) {
+        //        card.ammount = 1;
+        //    }
+        //    _cards[i] = card;
+        //}
         return _cards;
     },
-    getDeck: function(){
+    getDeck: function () {
         return _deck;
     }
 }, function (payload) {

@@ -36,8 +36,8 @@ var CardController = React.createClass({
     render: function () {
         return (
             <div className="app">
-                <Deck cards={this.state.deck.cards} cardClickedCallback={this.removeCardfromDeck}/>
                 <SearchResults cards={this.state.cards} cardClickedCallback={this.addCardToDeck}/>
+                <Deck cards={this.state.deck.cards} cardClickedCallback={this.removeCardfromDeck}/>
                 <SearchBar searchText={this.state.searchText} handleInputCallback={this.handleUserInput}/>
             </div>
         )

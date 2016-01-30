@@ -1,6 +1,7 @@
 html, body {
     min-height: 100%;
     margin: 0;
+    height: 100%
 }
 
 .app {
@@ -9,13 +10,15 @@ html, body {
 }
 
 .deck {
-    width: 50%;
+    width: 35%;
     margin-bottom: 100px;
     float: left;
 }
 
 .searchResults {
-    width: 50%;
+    width: 65%;
     margin-bottom: 100px;
     float: left;
+    height: 100%;
+    background-color: darkgray;
 }
