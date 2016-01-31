@@ -8,6 +8,7 @@ var SearchBar = React.createClass({
                                            onUserInput={this.props.handleOracleInputCallback}/>
                 Subtype(exact search): <SearchField searchText={this.props.searchSubtypeText}
                                            onUserInput={this.props.handleSubtypeInputCallback}/>
+                <ExportButton deck={this.props.deck}/>
             </div>
         )
     }

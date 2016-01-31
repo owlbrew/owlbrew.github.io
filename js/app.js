@@ -64,7 +64,7 @@ var CardController = React.createClass({
             <div className="app">
                 <SearchResults cards={this.state.cards} cardClickedCallback={this.addCardToDeck}/>
                 <Deck cards={this.state.deck.cards} cardClickedCallback={this.removeCardfromDeck}/>
-                <SearchBar searchText={this.state.searchText} searchOracleText={this.state.searchOracleText} searchSubtypeText={this.state.searchSubtypeText}
+                <SearchBar deck={this.state.deck} searchText={this.state.searchText} searchOracleText={this.state.searchOracleText} searchSubtypeText={this.state.searchSubtypeText}
                            handleInputCallback={this.handleUserInput}
                            handleOracleInputCallback={this.handleOracleUserInput} handleSubtypeInputCallback={this.handleSubtypeUserInput}/>
             </div>
