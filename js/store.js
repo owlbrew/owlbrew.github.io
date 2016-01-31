@@ -49,13 +49,6 @@ function removeCardFromDeck(cardToRemove) {
 
 var CardStore = Flux.createStore({
     getCards: function () {
-        //for (var i = 0; i < _cards.length; i++) {
-        //    var card = _cards[i];
-        //    if (card.ammount == null) {
-        //        card.ammount = 1;
-        //    }
-        //    _cards[i] = card;
-        //}
         return _cards;
     },
     getDeck: function () {
