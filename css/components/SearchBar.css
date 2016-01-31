@@ -5,3 +5,7 @@
     width: 100%;
     background-color: gray;
 }
+
+.searchBar > form {
+    display: inline;
+}

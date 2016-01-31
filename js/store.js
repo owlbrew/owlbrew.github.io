@@ -7,7 +7,7 @@ _cards = [];
 _deck = {
     cards: []
 };
-function updateCards(searchText, searchOracleText) {
+function updateCards(searchText, searchOracleText, searchSubtypeText) {
     var xmlHttp = new XMLHttpRequest();
     xmlHttp.onreadystatechange = function () {
         if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
@@ -15,12 +15,17 @@ function updateCards(searchText, searchOracleText) {
         }
     };
     var sets = ['KTK', 'FRF', 'DTK', 'ORI', 'BFZ', 'OGW'];
-    var setParam = '';
+    var setQuery = '';
     for (var i= 0;i<sets.length;i++) {
-        setParam = setParam + '&set=' + sets[i];
+        setQuery = setQuery + '&set=' + sets[i];
+    }
+    var subtypeQuery = '';
+    if (searchSubtypeText != null && searchSubtypeText != '') {
+        subtypeQuery = '&subtype=' + searchSubtypeText
     }
     if (searchOracleText == null) searchOracleText = '';
-    xmlHttp.open("GET", "https://api.deckbrew.com/mtg/cards?name=" + searchText + "&oracle=" + searchOracleText +  setParam, false); // false for synchronous request
+    var requestUrlParams = "name=" + searchText + "&oracle=" + searchOracleText +  setQuery + subtypeQuery;
+    xmlHttp.open("GET", "https://api.deckbrew.com/mtg/cards?" + requestUrlParams, false); // false for synchronous request
     xmlHttp.send(null);
 }
 
@@ -62,7 +67,7 @@ var CardStore = Flux.createStore({
     }
 }, function (payload) {
     if (payload.actionType === "UPDATE_CARDS") {
-        updateCards(payload.searchText, payload.searchOracleText);
+        updateCards(payload.searchText, payload.searchOracleText, payload.searchSubtypeText);
         CardStore.emitChange();
     }
     if (payload.actionType === "ADD_CARD_TO_DECK") {

@@ -7,7 +7,8 @@ var CardController = React.createClass({
             deck: getDeck(),
             cards: getCards(),
             searchText: '',
-            searchOracleText: ''
+            searchOracleText: '',
+            searchSubtypeText: ''
         };
     },
     storeDidChange: function () {
@@ -15,7 +16,8 @@ var CardController = React.createClass({
             deck: getDeck(),
             cards: getCards(),
             searchText: this.state.searchText,
-            searchOracleText: this.state.searchOracleText
+            searchOracleText: this.state.searchOracleText,
+            searchSubtypeText: this.state.searchSubtypeText
         });
     },
     handleUserInput: function (searchText) {
@@ -23,7 +25,8 @@ var CardController = React.createClass({
             deck: this.state.deck,
             cards: this.state.cards,
             searchText: searchText,
-            searchOracleText: this.state.searchOracleText
+            searchOracleText: this.state.searchOracleText,
+            searchSubtypeText: this.state.searchSubtypeText
         });
         this.getCards();
     },
@@ -32,12 +35,23 @@ var CardController = React.createClass({
             deck: this.state.deck,
             cards: this.state.cards,
             searchText: this.state.searchText,
-            searchOracleText: oracleSearchText
+            searchOracleText: oracleSearchText,
+            searchSubtypeText: this.state.searchSubtypeText
+        });
+        this.getCards();
+    },
+    handleSubtypeUserInput: function (subtypeSearchText) {
+        this.setState({
+            deck: this.state.deck,
+            cards: this.state.cards,
+            searchText: this.state.searchText,
+            searchOracleText: this.state.searchOracleText,
+            searchSubtypeText: subtypeSearchText
         });
         this.getCards();
     },
     getCards: function () {
-        CardsActions.updateCards(this.state.searchText, this.state.searchOracleText);
+        CardsActions.updateCards(this.state.searchText, this.state.searchOracleText, this.state.searchSubtypeText);
     },
     addCardToDeck(card) {
         CardsActions.addCardToDeck(card);
@@ -50,12 +64,15 @@ var CardController = React.createClass({
             <div className="app">
                 <SearchResults cards={this.state.cards} cardClickedCallback={this.addCardToDeck}/>
                 <Deck cards={this.state.deck.cards} cardClickedCallback={this.removeCardfromDeck}/>
-                <SearchBar searchText={this.state.searchText} searchOracleText={this.state.searchOracleText} handleInputCallback={this.handleUserInput} handleOracleInputCallback={this.handleOracleUserInput}/>
+                <SearchBar searchText={this.state.searchText} searchOracleText={this.state.searchOracleText} searchSubtypeText={this.state.searchSubtypeText}
+                           handleInputCallback={this.handleUserInput}
+                           handleOracleInputCallback={this.handleOracleUserInput} handleSubtypeInputCallback={this.handleSubtypeUserInput}/>
             </div>
         )
     },
     componentWillMount: function () {
         this.getCards = _.debounce(this.getCards, 100);
+        this.getCards();
     }
 });
 

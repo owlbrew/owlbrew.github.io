@@ -6,8 +6,8 @@ var SearchBar = React.createClass({
                                         onUserInput={this.props.handleInputCallback}/>
                 Oracle rules: <SearchField searchText={this.props.searchOracleText}
                                            onUserInput={this.props.handleOracleInputCallback}/>
-                Subtype(exact search): <SearchField searchText={this.props.searchCardTypeText}
-                                           onUserInput={this.props.handleCardTypeInputCallback}/>
+                Subtype(exact search): <SearchField searchText={this.props.searchSubtypeText}
+                                           onUserInput={this.props.handleSubtypeInputCallback}/>
             </div>
         )
     }
