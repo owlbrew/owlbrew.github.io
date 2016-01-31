@@ -1,3 +1,8 @@
 .deck > div > ul > li > .card {
-    height: 400px;
+    max-height: 400px;
+}
+
+.deck > h1 {
+    display: block;
+    height: 30px;
 }
