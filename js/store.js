@@ -14,7 +14,12 @@ function updateCards(searchText) {
             _cards = JSON.parse(xmlHttp.responseText);
         }
     };
-    xmlHttp.open("GET", "https://api.deckbrew.com/mtg/cards?name=" + searchText, false); // false for synchronous request
+    var sets = ['KTK', 'FRF', 'DTK', 'ORI', 'BFZ', 'OGW'];
+    var setParam = '';
+    for (var i= 0;i<sets.length;i++) {
+        setParam = setParam + '&set=' + sets[i];
+    }
+    xmlHttp.open("GET", "https://api.deckbrew.com/mtg/cards?name=" + searchText + setParam, false); // false for synchronous request
     xmlHttp.send(null);
 }
 
@@ -40,7 +45,7 @@ function removeCardFromDeck(cardToRemove) {
         if (card.id === cardToRemove.id) {
             if (card.ammount > 1) {
                 card.ammount--;
-            } else if (card.ammount == 1){
+            } else if (card.ammount == 1) {
                 _deck.cards.splice(i, 1)
             }
         }

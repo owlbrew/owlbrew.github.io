@@ -1,8 +1,10 @@
 .card {
-    width: 250px;
-    display: inline;
+    width: 223px;
+    height: 310px;
+    display: inline-flex;
+    position: relative;
 }
 
 .card > img {
-    width: 250px;
+    width: 223px;
 }
