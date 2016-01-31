@@ -13,7 +13,7 @@ var Card = React.createClass({
                 position: 'absolute',
                 top: offsetFromTop,
             };
-            var cardImage = <img src={card.editions[card.editions.length-1].image_url} style={style}/>;
+            var cardImage = <img src={card.img_url} style={style}/>;
             cardImages.push(cardImage);
         }
         return (

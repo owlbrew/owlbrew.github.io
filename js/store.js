@@ -9,14 +9,15 @@ _deck = {
 };
 function updateCards(searchText, searchOracleText, searchSubtypeText) {
     var xmlHttp = new XMLHttpRequest();
+    var sets = ['KTK', 'FRF', 'DTK', 'ORI', 'BFZ', 'OGW'];
     xmlHttp.onreadystatechange = function () {
         if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
             _cards = JSON.parse(xmlHttp.responseText);
+            _cards = setCardImageUrlsBasedOnEdition(_cards, sets);
         }
     };
-    var sets = ['KTK', 'FRF', 'DTK', 'ORI', 'BFZ', 'OGW'];
     var setQuery = '';
-    for (var i= 0;i<sets.length;i++) {
+    for (var i = 0; i < sets.length; i++) {
         setQuery = setQuery + '&set=' + sets[i];
     }
     var subtypeQuery = '';
@@ -24,9 +25,26 @@ function updateCards(searchText, searchOracleText, searchSubtypeText) {
         subtypeQuery = '&subtype=' + searchSubtypeText
     }
     if (searchOracleText == null) searchOracleText = '';
-    var requestUrlParams = "name=" + searchText + "&oracle=" + searchOracleText +  setQuery + subtypeQuery;
+    var requestUrlParams = "name=" + searchText + "&oracle=" + searchOracleText + setQuery + subtypeQuery;
     xmlHttp.open("GET", "https://api.deckbrew.com/mtg/cards?" + requestUrlParams, false); // false for synchronous request
     xmlHttp.send(null);
+}
+
+
+function setCardImageUrlsBasedOnEdition(cards, sets) {
+    for (var i=0; i < cards.length;i++) {
+        var card = cards[i];
+        for (var j=0;j<sets.length;j++) {
+            for (var k=0;k<card.editions.length;k++) {
+                if (card.editions[k].set_url.indexOf(sets[j]) > -1) {
+                    card.img_url = card.editions[k].image_url;
+                    break;
+                }
+            }
+            cards[i] = card;
+        }
+    }
+    return cards;
 }
 
 function addCardToDeck(cardToAdd) {
