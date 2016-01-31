@@ -7,7 +7,7 @@ var CardController = React.createClass({
             deck: getDeck(),
             cards: getCards(),
             searchText: '',
-            searchCardTypeText: ''
+            searchOracleText: ''
         };
     },
     storeDidChange: function () {
@@ -15,7 +15,7 @@ var CardController = React.createClass({
             deck: getDeck(),
             cards: getCards(),
             searchText: this.state.searchText,
-            searchCardTypeText: this.state.searchCardTypeText
+            searchOracleText: this.state.searchOracleText
         });
     },
     handleUserInput: function (searchText) {
@@ -23,21 +23,21 @@ var CardController = React.createClass({
             deck: this.state.deck,
             cards: this.state.cards,
             searchText: searchText,
-            searchCardTypeText: this.state.searchCardTypeText
+            searchOracleText: this.state.searchOracleText
         });
         this.getCards();
     },
-    handleCardTypeUserInput: function (cardType) {
+    handleOracleUserInput: function (oracleSearchText) {
         this.setState({
             deck: this.state.deck,
             cards: this.state.cards,
             searchText: this.state.searchText,
-            searchCardTypeText: cardType
+            searchOracleText: oracleSearchText
         });
         this.getCards();
     },
     getCards: function () {
-        CardsActions.updateCards(this.state.searchText, this.state.searchCardTypeText);
+        CardsActions.updateCards(this.state.searchText, this.state.searchOracleText);
     },
     addCardToDeck(card) {
         CardsActions.addCardToDeck(card);
@@ -50,7 +50,7 @@ var CardController = React.createClass({
             <div className="app">
                 <SearchResults cards={this.state.cards} cardClickedCallback={this.addCardToDeck}/>
                 <Deck cards={this.state.deck.cards} cardClickedCallback={this.removeCardfromDeck}/>
-                <SearchBar searchText={this.state.searchText} searchCardTypeText={this.state.searchCardTypeText} handleInputCallback={this.handleUserInput} handleCardTypeInputCallback={this.handleCardTypeUserInput}/>
+                <SearchBar searchText={this.state.searchText} searchOracleText={this.state.searchOracleText} handleInputCallback={this.handleUserInput} handleOracleInputCallback={this.handleOracleUserInput}/>
             </div>
         )
     },
