@@ -24,7 +24,7 @@ var ExportButton = React.createClass({
             downloadAsTextFile(getDeckAsText(deck));
         };
         return (
-            <button onClick={handleButtonClicked}>Click me</button>
+            <button onClick={handleButtonClicked}>Export Deck</button>
         )
     }
 });
