@@ -7,7 +7,7 @@ _cards = [];
 _deck = {
     cards: []
 };
-function updateCards(searchText) {
+function updateCards(searchText, searchCardTypeText) {
     var xmlHttp = new XMLHttpRequest();
     xmlHttp.onreadystatechange = function () {
         if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
@@ -19,7 +19,8 @@ function updateCards(searchText) {
     for (var i= 0;i<sets.length;i++) {
         setParam = setParam + '&set=' + sets[i];
     }
-    xmlHttp.open("GET", "https://api.deckbrew.com/mtg/cards?name=" + searchText + setParam, false); // false for synchronous request
+    if (searchCardTypeText == null) searchCardTypeText = '';
+    xmlHttp.open("GET", "https://api.deckbrew.com/mtg/cards?name=" + searchText + "&oracle=" + searchCardTypeText +  setParam, false); // false for synchronous request
     xmlHttp.send(null);
 }
 
@@ -61,7 +62,7 @@ var CardStore = Flux.createStore({
     }
 }, function (payload) {
     if (payload.actionType === "UPDATE_CARDS") {
-        updateCards(payload.searchText);
+        updateCards(payload.searchText, payload.searchCardTypeText);
         CardStore.emitChange();
     }
     if (payload.actionType === "ADD_CARD_TO_DECK") {

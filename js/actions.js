@@ -1,10 +1,11 @@
 /** Actions */
 
 var CardsActions = Flux.createActions({
-    updateCards: function (searchText) {
+    updateCards: function (searchText, searchCardTypeText) {
         return {
             actionType: "UPDATE_CARDS",
-            searchText: searchText
+            searchText: searchText,
+            searchCardTypeText: searchCardTypeText
         }
     },
     addCardToDeck: function(card) {

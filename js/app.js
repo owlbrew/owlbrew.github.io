@@ -6,26 +6,38 @@ var CardController = React.createClass({
         return {
             deck: getDeck(),
             cards: getCards(),
-            searchText: 'test'
+            searchText: '',
+            searchCardTypeText: ''
         };
     },
     storeDidChange: function () {
         this.setState({
             deck: getDeck(),
             cards: getCards(),
-            searchText: this.state.searchText
+            searchText: this.state.searchText,
+            searchCardTypeText: this.state.searchCardTypeText
         });
     },
     handleUserInput: function (searchText) {
         this.setState({
             deck: this.state.deck,
             cards: this.state.cards,
-            searchText: searchText
+            searchText: searchText,
+            searchCardTypeText: this.state.searchCardTypeText
+        });
+        this.getCards();
+    },
+    handleCardTypeUserInput: function (cardType) {
+        this.setState({
+            deck: this.state.deck,
+            cards: this.state.cards,
+            searchText: this.state.searchText,
+            searchCardTypeText: cardType
         });
         this.getCards();
     },
     getCards: function () {
-        CardsActions.updateCards(this.state.searchText);
+        CardsActions.updateCards(this.state.searchText, this.state.searchCardTypeText);
     },
     addCardToDeck(card) {
         CardsActions.addCardToDeck(card);
@@ -38,7 +50,7 @@ var CardController = React.createClass({
             <div className="app">
                 <SearchResults cards={this.state.cards} cardClickedCallback={this.addCardToDeck}/>
                 <Deck cards={this.state.deck.cards} cardClickedCallback={this.removeCardfromDeck}/>
-                <SearchBar searchText={this.state.searchText} handleInputCallback={this.handleUserInput}/>
+                <SearchBar searchText={this.state.searchText} searchCardTypeText={this.state.searchCardTypeText} handleInputCallback={this.handleUserInput} handleCardTypeInputCallback={this.handleCardTypeUserInput}/>
             </div>
         )
     },
