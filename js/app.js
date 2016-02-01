@@ -8,7 +8,14 @@ var CardController = React.createClass({
             cards: getCards(),
             searchText: '',
             searchOracleText: '',
-            searchSubtypeText: ''
+            searchSubtypeText: '',
+            manaParams: {
+                white: true,
+                blue: true,
+                black: true,
+                red: true,
+                green: true
+            }
         };
     },
     storeDidChange: function () {
@@ -17,7 +24,8 @@ var CardController = React.createClass({
             cards: getCards(),
             searchText: this.state.searchText,
             searchOracleText: this.state.searchOracleText,
-            searchSubtypeText: this.state.searchSubtypeText
+            searchSubtypeText: this.state.searchSubtypeText,
+            manaParams: this.state.manaParams
         });
     },
     handleUserInput: function (searchText) {
@@ -26,7 +34,8 @@ var CardController = React.createClass({
             cards: this.state.cards,
             searchText: searchText,
             searchOracleText: this.state.searchOracleText,
-            searchSubtypeText: this.state.searchSubtypeText
+            searchSubtypeText: this.state.searchSubtypeText,
+            manaParams: this.state.manaParams
         });
         this.getCards();
     },
@@ -36,7 +45,8 @@ var CardController = React.createClass({
             cards: this.state.cards,
             searchText: this.state.searchText,
             searchOracleText: oracleSearchText,
-            searchSubtypeText: this.state.searchSubtypeText
+            searchSubtypeText: this.state.searchSubtypeText,
+            manaParams: this.state.manaParams
         });
         this.getCards();
     },
@@ -46,7 +56,8 @@ var CardController = React.createClass({
             cards: this.state.cards,
             searchText: this.state.searchText,
             searchOracleText: this.state.searchOracleText,
-            searchSubtypeText: subtypeSearchText
+            searchSubtypeText: subtypeSearchText,
+            manaParams: this.state.manaParams
         });
         this.getCards();
     },
@@ -59,14 +70,28 @@ var CardController = React.createClass({
     removeCardfromDeck(card) {
         CardsActions.removeCardfromDeck(card);
     },
+    handleManaParamsInput(){
+        this.setState({
+            deck: this.state.deck,
+            cards: this.state.cards,
+            searchText: this.state.searchText,
+            searchOracleText: this.state.searchOracleText,
+            searchSubtypeText: subtypeSearchText,
+            manaParams: this.state.manaParams
+        });
+    },
     render: function () {
         return (
             <div className="app">
                 <SearchResults cards={this.state.cards} cardClickedCallback={this.addCardToDeck}/>
                 <Deck cards={this.state.deck.cards} cardClickedCallback={this.removeCardfromDeck}/>
-                <SearchBar deck={this.state.deck} searchText={this.state.searchText} searchOracleText={this.state.searchOracleText} searchSubtypeText={this.state.searchSubtypeText}
+                <SearchBar deck={this.state.deck} searchText={this.state.searchText}
+                           searchOracleText={this.state.searchOracleText}
+                           searchSubtypeText={this.state.searchSubtypeText}
                            handleInputCallback={this.handleUserInput}
-                           handleOracleInputCallback={this.handleOracleUserInput} handleSubtypeInputCallback={this.handleSubtypeUserInput}/>
+                           handleOracleInputCallback={this.handleOracleUserInput}
+                           handleSubtypeInputCallback={this.handleSubtypeUserInput} manaParams={this.state.manaParams}
+                           manaParamsInputCallback={this.handleManaParamsInput}/>
             </div>
         )
     },

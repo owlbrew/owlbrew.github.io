@@ -1,6 +1,5 @@
 var DeckUtils = {
-    getDeckAsText: function
-        (deck) {
+    getDeckAsText: function (deck) {
         var output = '';
         for (var i = 0; i < deck.cards.length; i++) {
             var card = deck.cards[i];
