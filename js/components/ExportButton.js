@@ -12,16 +12,8 @@ var ExportButton = React.createClass({
             a.download = 'mydeck.txt';
             a.click();
         };
-        var getDeckAsText = function(deck) {
-            var output = '';
-            for (var i =0;i<deck.cards.length;i++) {
-                var card = deck.cards[i];
-                output = output.concat('\r\n' + card.ammount + ' ' + card.name)
-            }
-            return output;
-        };
         var handleButtonClicked = function () {
-            downloadAsTextFile(getDeckAsText(deck));
+            downloadAsTextFile(DeckUtils.getDeckAsText(deck));
         };
         return (
             <button onClick={handleButtonClicked}>Export Deck</button>
