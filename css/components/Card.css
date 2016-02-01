@@ -3,6 +3,7 @@
     height: 310px;
     display: inline-flex;
     position: relative;
+    cursor: pointer;
 }
 
 .card > img {
