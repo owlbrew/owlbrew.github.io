@@ -1,12 +1,13 @@
 /** Actions */
 
 var CardsActions = Flux.createActions({
-    updateCards: function (searchText, searchOracleText, searchSubtypeText) {
+    updateCards: function (searchText, searchOracleText, searchSubtypeText, manaParams) {
         return {
             actionType: "UPDATE_CARDS",
             searchText: searchText,
             searchOracleText: searchOracleText,
-            searchSubtypeText: searchSubtypeText
+            searchSubtypeText: searchSubtypeText,
+            manaParams: manaParams
         }
     },
     addCardToDeck: function(card) {

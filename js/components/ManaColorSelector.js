@@ -1,21 +1,19 @@
 var ManaColorSelector = React.createClass({
     handleChange: function () {
-        console.log('oi');
         var manaParams = {
-            white: this.refs.whiteCheckbox.getDOMNode().value,
-            blue: this.refs.blueCheckbox.getDOMNode().value,
-            black: this.refs.blackCheckbox.getDOMNode().value,
-            red: this.refs.redCheckbox.getDOMNode().value,
-            green: this.refs.greenCheckbox.getDOMNode().value
+            white: this.refs.whiteCheckbox.getDOMNode().checked,
+            blue: this.refs.blueCheckbox.getDOMNode().checked,
+            black: this.refs.blackCheckbox.getDOMNode().checked,
+            red: this.refs.redCheckbox.getDOMNode().checked,
+            green: this.refs.greenCheckbox.getDOMNode().checked
         };
         this.props.manaParamsInputCallback(manaParams);
     },
     render: function () {
-        console.log('oi');
         return (
             <div>
                 <input type="checkbox" ref="whiteCheckbox" checked={this.props.manaParams.white}
-                       onClick={this.handleChange}>W</input>
+                       onChange={this.handleChange}>W</input>
                 <input type="checkbox" ref="blueCheckbox" checked={this.props.manaParams.blue}
                        onChange={this.handleChange}>U</input>
                 <input type="checkbox" ref="blackCheckbox" checked={this.props.manaParams.black}
