@@ -8,20 +8,33 @@ _deck = {
     cards: []
 };
 function updateCards(searchText, searchOracleText, searchSubtypeText, manaParams) {
-    var xmlHttp = new XMLHttpRequest();
     var sets = ['KTK', 'FRF', 'DTK', 'ORI', 'BFZ', 'OGW'];
+    makeRequest(searchText, searchOracleText, searchSubtypeText, manaParams, sets);
+}
+
+function handleResponse(response, sets) {
+    if (response.readyState == 4 && response.status == 200) {
+        _cards = (getCardsFromResponse(response, sets));
+    }
+}
+
+function getCardsFromResponse(response, sets) {
+    var cards = JSON.parse(response.responseText);
+    cards = setCardImageUrlsBasedOnEdition(cards, sets);
+    return cards;
+}
+
+function makeRequest(searchText, searchOracleText, searchSubtypeText, manaParams, sets) {
+    var xmlHttp = new XMLHttpRequest();
     xmlHttp.onreadystatechange = function () {
-        if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
-            _cards = JSON.parse(xmlHttp.responseText);
-            _cards = setCardImageUrlsBasedOnEdition(_cards, sets);
-        }
+        handleResponse(xmlHttp, sets);
     };
-    var requestUrlParams = buildQueryParams(searchText, searchOracleText, searchSubtypeText, manaParams);
+    var requestUrlParams = buildQueryParams(searchText, searchOracleText, searchSubtypeText, manaParams, sets);
     xmlHttp.open("GET", "https://api.deckbrew.com/mtg/cards?" + requestUrlParams, false); // false for synchronous request
     xmlHttp.send(null);
 }
 
-function buildQueryParams(searchText, searchOracleText, searchSubtypeText, manaParams) {
+function buildQueryParams(searchText, searchOracleText, searchSubtypeText, manaParams, sets) {
     //Set query params
     var setQuery = '';
     for (var i = 0; i < sets.length; i++) {
