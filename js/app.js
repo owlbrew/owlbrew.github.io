@@ -15,7 +15,8 @@ var CardController = React.createClass({
                 black: false,
                 red: false,
                 green: false
-            }
+            },
+            searchResultsScroll: 0
         };
     },
     storeDidChange: function () {
@@ -25,7 +26,8 @@ var CardController = React.createClass({
             searchText: this.state.searchText,
             searchOracleText: this.state.searchOracleText,
             searchSubtypeText: this.state.searchSubtypeText,
-            manaParams: this.state.manaParams
+            manaParams: this.state.manaParams,
+            searchResultsScroll: 0
         });
     },
     handleUserInput: function (searchText) {
@@ -35,9 +37,10 @@ var CardController = React.createClass({
             searchText: searchText,
             searchOracleText: this.state.searchOracleText,
             searchSubtypeText: this.state.searchSubtypeText,
-            manaParams: this.state.manaParams
+            manaParams: this.state.manaParams,
+            searchResultsScroll: this.state.searchResultsScroll
         });
-        this.getCards();
+        this.updateCards();
     },
     handleOracleUserInput: function (oracleSearchText) {
         this.setState({
@@ -46,9 +49,10 @@ var CardController = React.createClass({
             searchText: this.state.searchText,
             searchOracleText: oracleSearchText,
             searchSubtypeText: this.state.searchSubtypeText,
-            manaParams: this.state.manaParams
+            manaParams: this.state.manaParams,
+            searchResultsScroll: this.state.searchResultsScroll
         });
-        this.getCards();
+        this.updateCards();
     },
     handleSubtypeUserInput: function (subtypeSearchText) {
         this.setState({
@@ -57,9 +61,10 @@ var CardController = React.createClass({
             searchText: this.state.searchText,
             searchOracleText: this.state.searchOracleText,
             searchSubtypeText: subtypeSearchText,
-            manaParams: this.state.manaParams
+            manaParams: this.state.manaParams,
+            searchResultsScroll: this.state.searchResultsScroll
         });
-        this.getCards();
+        this.updateCards();
     },
     handleManaParamsInput(manaParams){
         this.setState({
@@ -68,11 +73,23 @@ var CardController = React.createClass({
             searchText: this.state.searchText,
             searchOracleText: this.state.searchOracleText,
             searchSubtypeText: this.state.searchSubtypeText,
-            manaParams: manaParams
+            manaParams: manaParams,
+            searchResultsScroll: this.state.searchResultsScroll
         });
-        this.getCards();
+        this.updateCards();
     },
-    getCards: function () {
+    onSearchResultsScroll(scroll) {
+        this.setState({
+            deck: this.state.deck,
+            cards: this.state.cards,
+            searchText: this.state.searchText,
+            searchOracleText: this.state.searchOracleText,
+            searchSubtypeText: this.state.searchSubtypeText,
+            manaParams: this.state.manaParams,
+            searchResultsScroll: scroll
+        });
+    },
+    updateCards: function () {
         CardsActions.updateCards(this.state.searchText, this.state.searchOracleText, this.state.searchSubtypeText, this.state.manaParams);
     },
     addCardToDeck(card) {
@@ -84,7 +101,8 @@ var CardController = React.createClass({
     render: function () {
         return (
             <div className="app">
-                <SearchResults cards={this.state.cards} cardClickedCallback={this.addCardToDeck}/>
+                <SearchResults ref="searchResults" cards={this.state.cards} cardClickedCallback={this.addCardToDeck}
+                               scroll={this.state.searchResultsScroll} onScroll={this.onSearchResultsScroll}/>
                 <Deck cards={this.state.deck.cards} cardClickedCallback={this.removeCardfromDeck}/>
                 <SearchBar deck={this.state.deck} searchText={this.state.searchText}
                            searchOracleText={this.state.searchOracleText}
@@ -97,8 +115,8 @@ var CardController = React.createClass({
         )
     },
     componentWillMount: function () {
-        this.getCards = _.debounce(this.getCards, 100);
-        this.getCards();
+        this.updateCards = _.debounce(this.updateCards, 100);
+        this.updateCards();
     }
 });
 
